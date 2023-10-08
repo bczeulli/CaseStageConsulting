@@ -1,0 +1,24 @@
+<template>
+  <lightning-card title={title}>
+    <div class="slds-grid slds-align_absolute-center">
+      <div class="slds-text-align_center slds-size_1-of-1 slds-p-around_large">
+
+        <div class="slds-m-bottom_large slds-text-heading_medium">{textMsg}</div>
+        <div class="container">
+          <div class="gauge-a"></div>
+          <div class="gauge-b"></div>
+          <div class="gauge-c" style={styleGaugeC}></div>
+          <div class="gauge-data">
+            <h1>{value}%</h1>
+          </div>
+        </div>
+        <template if:true={error}>
+          <div class="error-message">
+            ⚠️ {error}
+          </div>
+        </template>
+
+      </div>
+    </div>
+  </lightning-card>
+</template>

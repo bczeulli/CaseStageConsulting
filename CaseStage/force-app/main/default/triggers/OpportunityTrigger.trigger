@@ -4,7 +4,7 @@ trigger OpportunityTrigger on Opportunity (after insert, after update, before in
         OpportunityTriggerHandler.customerType(trigger.new);
     }
 
-    if((Trigger.isUpdate || Trigger.isInsert)&& Trigger.isBefore){
+    if(Trigger.isUpdate && Trigger.isBefore){
         OpportunityTriggerHandler.verifyFiles(trigger.new);
     }
 

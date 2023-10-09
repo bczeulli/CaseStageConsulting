@@ -6,7 +6,7 @@ const INVALID_FIELD = "Invalid field";
 const NO_FIELD_SELECTED = "No field selected";
 const PERCENT_TYPE_SUPPORTED = 'Only fields of type "Percent" are supported';
 const LIMIT1_GREATER_THAN_LIMIT2 = "Limit 2 must be greater than the Limit 1";
-const FIELDS = ["Opportunity.LastStageChangeDate","Opportunity.StageName"];
+const FIELDS = ["Opportunity.LastStageChangeDate","Opportunity.CloseDate"];
 const dataAtual = new Date().toISOString();
 const dataAtualObj = new Date(dataAtual);
 
@@ -50,7 +50,7 @@ export default class Gauge extends LightningElement {
         if (field) {
           console.log('data',data);
           this.fieldValue = data.fields.Probability.value;
-          dataFornecida = data.fields.LastStageChangeDate.value;
+          dataFornecida = data.fields.CloseDate.value;
           dataFornecidaObj = new Date(dataFornecida).toISOString();
           let data2 = new Date(dataFornecidaObj);
           let data3 = diferencaEmDias = Math.floor((data2 - dataAtualObj) / (1000 * 60 * 60 * 24));
@@ -60,19 +60,19 @@ export default class Gauge extends LightningElement {
 
           switch (true) {
             case this.daysDiference > 59 :
-                this.textMessage = 'Insatisfeito: Probabilidade muito baixa';
-                break;
-            case this.daysDiference < 45 && this.daysDiference >= 30:
-                this.textMessage = 'Pouco Satisfeito: Baixa probabilidade';
-                break;
-            case this.daysDiference < 30 && this.daysDiference >= 20:
-                this.textMessage = 'Satisfeito: Probabilidade moderada';
-                break;
-            case this.daysDiference < 20 && this.daysDiference >= 10:
+              this.textMessage = 'Extremamente Satisfeito: Probabilidade muito alta';
+              break;
+              case this.daysDiference < 45 && this.daysDiference >= 30:
                 this.textMessage = 'Muito Satisfeito: Alta probabilidade';
                 break;
-            case this.daysDiference < 10 :
-                this.textMessage = 'Extremamente Satisfeito: Probabilidade muito alta';
+                case this.daysDiference < 30 && this.daysDiference >= 20:
+                  this.textMessage = 'Satisfeito: Probabilidade moderada';
+                  break;
+                  case this.daysDiference < 20 && this.daysDiference >= 10:
+                    this.textMessage = 'Pouco Satisfeito: Baixa probabilidade';
+                    break;
+                    case this.daysDiference < 10 :
+                      this.textMessage = 'Insatisfeito: Probabilidade muito baixa';
                 break;    
             default:
                 this.textMessage;

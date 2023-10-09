@@ -6,6 +6,9 @@ const INVALID_FIELD = "Invalid field";
 const NO_FIELD_SELECTED = "No field selected";
 const PERCENT_TYPE_SUPPORTED = 'Only fields of type "Percent" are supported';
 const LIMIT1_GREATER_THAN_LIMIT2 = "Limit 2 must be greater than the Limit 1";
+const FIELDS = ["Opportunity.LastStageChangeDate","Opportunity.StageName"];
+const dataAtual = new Date().toISOString();
+const dataAtualObj = new Date(dataAtual);
 
 export default class Gauge extends LightningElement {
     @api recordId;
@@ -21,14 +24,16 @@ export default class Gauge extends LightningElement {
     value = 0;
     error;
     fieldValue;
-    textMsg;
+    textMessage;
+    daysDiference;
   
     /**
      * load the record data
      */
     @wire(getRecord, {
       recordId: "$recordId",
-      fields: "$objectApiNameDotfieldApiName"
+      fields: "$objectApiNameDotfieldApiName",
+      optionalFields: FIELDS
     })
     loadRecord({ error, data }) {
       if (error) {
@@ -39,32 +44,38 @@ export default class Gauge extends LightningElement {
         }
       } else if (data) {
         let field = data.fields[this.fieldApiName];
+        let diferencaEmDias;
+        let dataFornecida;
+        let dataFornecidaObj;
         if (field) {
           console.log('data',data);
-          this.fieldValue = field.value;
+          this.fieldValue = data.fields.Probability.value;
+          dataFornecida = data.fields.LastStageChangeDate.value;
+          dataFornecidaObj = new Date(dataFornecida).toISOString();
+          let data2 = new Date(dataFornecidaObj);
+          let data3 = diferencaEmDias = Math.floor((data2 - dataAtualObj) / (1000 * 60 * 60 * 24));
+          this.daysDiference = data3;
+          console.log(data3);
           this.setGaugeValue(this.fieldValue);
 
           switch (true) {
-            case this.fieldValue > 0 && this.fieldValue <= 20:
-                this.textMsg = 'Insatisfeito: Probabilidade muito baixa';
+            case this.daysDiference > 59 :
+                this.textMessage = 'Insatisfeito: Probabilidade muito baixa';
                 break;
-            case this.fieldValue > 20 && this.fieldValue <= 40:
-                this.textMsg = 'Pouco Satisfeito: Baixa probabilidade';
+            case this.daysDiference < 45 && this.daysDiference >= 30:
+                this.textMessage = 'Pouco Satisfeito: Baixa probabilidade';
                 break;
-            case this.fieldValue > 40 && this.fieldValue <= 60:
-                this.textMsg = 'Satisfeito: Probabilidade moderada';
+            case this.daysDiference < 30 && this.daysDiference >= 20:
+                this.textMessage = 'Satisfeito: Probabilidade moderada';
                 break;
-            case this.fieldValue > 60 && this.fieldValue <= 80:
-                this.textMsg = 'Muito Satisfeito: Alta probabilidade';
+            case this.daysDiference < 20 && this.daysDiference >= 10:
+                this.textMessage = 'Muito Satisfeito: Alta probabilidade';
                 break;
-            case this.fieldValue > 80 && this.fieldValue < 100:
-                this.textMsg = 'Extremamente Satisfeito: Probabilidade muito alta';
+            case this.daysDiference < 10 :
+                this.textMessage = 'Extremamente Satisfeito: Probabilidade muito alta';
                 break;    
-            case this.fieldValue = 100:
-                this.textMsg = 'ok';
-                break;
             default:
-                this.textMsg;
+                this.textMessage;
                 break;
             }
         }

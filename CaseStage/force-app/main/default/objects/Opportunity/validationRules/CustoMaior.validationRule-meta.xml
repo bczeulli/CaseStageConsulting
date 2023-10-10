@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustoMaior</fullName>
+    <active>true</active>
+    <errorConditionFormula>EstimatedProjectCost__c &gt;  ProposalValue__c</errorConditionFormula>
+    <errorDisplayField>EstimatedProjectCost__c</errorDisplayField>
+    <errorMessage>Custo do projeto não pode ser maior que proposta</errorMessage>
+</ValidationRule>

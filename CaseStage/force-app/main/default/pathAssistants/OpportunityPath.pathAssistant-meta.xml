@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Opportunity</entityName>
+    <fieldName>StageName</fieldName>
+    <masterLabel>OpportunityPath</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Enviar proposta e NDA (acordo de confidencialidade);&lt;/li&gt;&lt;li&gt;Anexar os documentos.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Aberta</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Anexar o contrato assinado para dar ganho na oportunidade.&lt;/p&gt;</info>
+        <picklistValueName>Formalização</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ProposalValue__c</fieldNames>
+        <fieldNames>EstimatedProjectCost__c</fieldNames>
+        <fieldNames>StartDate__c</fieldNames>
+        <fieldNames>EndDate__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Atualize se necessário os campos indicados.&lt;/li&gt;&lt;li&gt;Anexar o &amp;quot;De acordo&amp;quot; do cliente&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Negociação</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

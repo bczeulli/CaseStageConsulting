@@ -65,7 +65,7 @@ public class OpportunityTriggerHandler {
                 
                 opp.addError('Não foi detectado os documentos de NDA ou Proposta. Favor verificar os nomes dos arquivos!');
             }
-            if (opp.StageName == 'Formalização' && isDeAcordo == false || (isNDA == false || isProposta == false)) {
+            if (opp.StageName == 'Formalização' && (isDeAcordo == false || (isNDA == false || isProposta == false))) {
                 
                 opp.addError('Não foi detectado o documento do "De acordo" do cliente ou NDA/Proposta. Favor verificar os nomes dos arquivos!');
             }

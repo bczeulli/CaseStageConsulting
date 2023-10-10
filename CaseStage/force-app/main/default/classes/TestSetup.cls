@@ -14,7 +14,10 @@ public class TestSetup {
             AccountId = accountId,
             EstimatedProjectCost__c = estimatedProjectCost,
             EndDate__c = Date.newInstance(2023, 12, 9),
-            StartDate__c = Date.newInstance(2023, 12, 5)
+            StartDate__c = Date.newInstance(2023, 12, 5),
+            Email__c = 'a@a.com',
+            ProjectDetail__c = 'teste'
+
         );
         return opportunity;
     }
